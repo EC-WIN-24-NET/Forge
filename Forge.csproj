@@ -7,7 +7,9 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5"/>
+        <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.4.0" />
+        <PackageReference Include="Azure.Identity" Version="1.14.0" />
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.5" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.5">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,6 +18,40 @@
 
     <ItemGroup>
       <Folder Include="Controllers\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Infrastructure\**" />
+      <Compile Remove="Core\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Infrastructure\**" />
+      <EmbeddedResource Remove="Core\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Content Remove="Infrastructure\**" />
+      <Content Remove="Core\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Infrastructure\**" />
+      <None Remove="Core\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <_ContentIncludedByDefault Remove="Infrastructure\obj\Infrastructure.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="Infrastructure\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Infrastructure\obj\project.packagespec.json" />
+      <_ContentIncludedByDefault Remove="Core\obj\Core.csproj.nuget.dgspec.json" />
+      <_ContentIncludedByDefault Remove="Core\obj\project.assets.json" />
+      <_ContentIncludedByDefault Remove="Core\obj\project.packagespec.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="Core\Core.csproj" />
+      <ProjectReference Include="Infrastructure\Infrastructure.csproj" />
     </ItemGroup>
 
 </Project>
