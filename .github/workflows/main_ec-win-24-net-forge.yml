@@ -21,25 +21,28 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '9.x'
+          dotnet-version: '9.x' # Consider using a specific LTS version like '8.0.x' unless you require .NET 9 features
 
       - name: Build with dotnet
-        run: dotnet build --configuration Release
+        run: dotnet build Presentation.sln --configuration Release
 
       - name: dotnet publish
-        run: dotnet publish -c Release -o "${{env.DOTNET_ROOT}}/myapp"
+        # Replace 'Path/To/YourActualWebAppProject.csproj' with the relative path to your main web application project file
+        # For example, if your web app project is in a folder 'Forge.WebApp' and named 'Forge.WebApp.csproj',
+        # use 'Forge.WebApp/Forge.WebApp.csproj'
+        run: dotnet publish Forge.csproj -c Release -o ${{ github.workspace }}/myappoutput
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ${{ github.workspace }}/myappoutput
 
   deploy:
     runs-on: windows-latest
     needs: build
     environment:
-      name: 'Production'
+      name: 'Production' # Ensure 'Production' environment is configured in your repo settings
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
@@ -50,6 +53,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: .net-app
+          # By default, this downloads to GITHUB_WORKSPACE
       
       - name: Login to Azure
         uses: azure/login@v2
@@ -64,5 +68,4 @@ jobs:
         with:
           app-name: 'EC-WIN-24-NET-Forge'
           slot-name: 'Production'
-          package: .
-          
+          package: . # This should be correct if myappoutput contained the app files directly
