@@ -1,4 +1,8 @@
+using System.Reflection;
 using Azure.Identity;
+using Infrastructure;
+using Microsoft.OpenApi.Models;
+using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -29,12 +33,34 @@ else
 
 var connectionString = builder.Configuration.GetConnectionString("SQLServerAzure");
 
-var app = builder.Build();
+// Time to register our Core Services and Infrastructure
+builder.Services.AddInfrastructure(connectionString!);
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) { }
+// https://learn.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-8.0&tabs=visual-studio
+builder.Services.AddSwaggerGen(c =>
+{
+    // Adding a new Swagger document
+    c.SwaggerDoc(
+        "v1",
+        new OpenApiInfo
+        {
+            Title = "Forge API",
+            Version = "v1",
+            Description = "A simple API for managing events and packages.",
+            Contact = new OpenApiContact()
+            {
+                Name = "Georgi Sundberg",
+                Email = "georgi.sundberg@outlook.com",
+                Url = new Uri("https://www.google.se"),
+            },
+        }
+    );
 
-app.UseHttpsRedirection();
+    // Adding XML comments to Swagger
+    var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+    c.IncludeXmlComments(xmlPath);
+});
 
 // Adding support for CORS
 builder.Services.AddCors(options =>
@@ -45,10 +71,37 @@ builder.Services.AddCors(options =>
         policy =>
         {
             // Minimal without security...duh
-            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod().AllowCredentials();
+            policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
         }
     );
 });
+
+// Registering the CORS policy
+var app = builder.Build();
+
+// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.MapScalarApiReference();
+    app.UseSwagger();
+    app.UseSwaggerUI(c =>
+    {
+        // Adding a new Swagger endpoint
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "Forge API v1");
+        // Adding OAuth support
+        c.OAuthClientId("swagger-ui");
+        // Adding OAuth scopes
+        c.OAuthScopes("api1", "api2");
+    });
+
+    app.MapOpenApi();
+}
+
+app.UseHttpsRedirection();
+
+// Enable CORS after the HTTPS redirection
+app.UseCors("AllowAllNoSecurity");
 
 app.UseAuthorization();
 

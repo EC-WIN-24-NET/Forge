@@ -1,6 +1,5 @@
-@API_HostAddress = https://localhost:5252
-
-GET {{API_HostAddress}}/projects/
+@API_HostAddress = https://localhost:7170
+GET {{API_HostAddress}}/events/
     Accept: application/json
 
 ###
