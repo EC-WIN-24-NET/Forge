@@ -1,4 +1,3 @@
-using System.Data.Common;
 using Core.DTOs;
 using Core.Interfaces;
 using Core.Interfaces.Data;
@@ -25,19 +24,39 @@ public class EventService(
             // Get the event from the repository
             var eventResult = await eventRepository.GetAsync(e => e != null && e.Id == id, false);
 
-            // Check if the result is successful
-            if (eventResult.StatusCode != 200 || eventResult.Value == null)
+            // Case 1: Repository operation itself failed (e.g., DB connection issue, invalid query).
+            // eventResult.Error will be a specific error type, not Error.NonError.
+            if (eventResult.Error != Error.NonError)
             {
-                // Return the error using RepositoryResult
                 return resultFactory.OperationFailed<EventDisplay>(
                     eventResult.Error,
                     eventResult.StatusCode
                 );
             }
 
-            // Return the created domain object and success result
-            var displayUserDto = eventDtoFactory.ToDisplay(eventResult.Value);
-            return resultFactory.OperationSuccess(displayUserDto, 200);
+            // Case 2: Entity was found.
+            // BaseRepository.GetAsync returns Value != null and StatusCode = 200.
+            // This means the event was successfully retrieved.
+            if (eventResult.Value != null)
+            {
+                var displayEventDto = eventDtoFactory.ToDisplay(eventResult.Value);
+                return resultFactory.OperationSuccess(displayEventDto, eventResult.StatusCode);
+            }
+
+            // Case 3: Entity was not found.
+            if (eventResult.StatusCode == 404)
+            {
+                return resultFactory.OperationFailed<EventDisplay>(Error.NotFound("Event is not found"), 404);
+            }
+
+            // Case 4: Unexpected state after retrieving event details.
+            return resultFactory.OperationFailed<EventDisplay>(
+                new Error(
+                    "EventService.UnexpectedState",
+                    "An unexpected state was encountered after retrieving event details."
+                ),
+                500 // Or eventResult.StatusCode if it's a known non-error, non-404 code
+            );
         }
         catch (Exception)
         {

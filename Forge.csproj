@@ -21,23 +21,24 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.3" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Controllers\" />
-  </ItemGroup>
-  <ItemGroup>
     <Compile Remove="Infrastructure\**" />
     <Compile Remove="Core\**" />
+    <Compile Remove="Domain\**" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Remove="Infrastructure\**" />
     <EmbeddedResource Remove="Core\**" />
+    <EmbeddedResource Remove="Domain\**" />
   </ItemGroup>
   <ItemGroup>
     <Content Remove="Infrastructure\**" />
     <Content Remove="Core\**" />
+    <Content Remove="Domain\**" />
   </ItemGroup>
   <ItemGroup>
     <None Remove="Infrastructure\**" />
     <None Remove="Core\**" />
+    <None Remove="Domain\**" />
   </ItemGroup>
   <ItemGroup>
     <_ContentIncludedByDefault Remove="Infrastructure\obj\Infrastructure.csproj.nuget.dgspec.json" />
@@ -46,6 +47,11 @@
     <_ContentIncludedByDefault Remove="Core\obj\Core.csproj.nuget.dgspec.json" />
     <_ContentIncludedByDefault Remove="Core\obj\project.assets.json" />
     <_ContentIncludedByDefault Remove="Core\obj\project.packagespec.json" />
+    <_ContentIncludedByDefault Remove="Domain\bin\Debug\net9.0\Domain.deps.json" />
+    <_ContentIncludedByDefault Remove="Domain\obj\Debug\net9.0\Domain.sourcelink.json" />
+    <_ContentIncludedByDefault Remove="Domain\obj\Domain.csproj.nuget.dgspec.json" />
+    <_ContentIncludedByDefault Remove="Domain\obj\project.assets.json" />
+    <_ContentIncludedByDefault Remove="Domain\obj\project.packagespec.json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="Core\Core.csproj" />

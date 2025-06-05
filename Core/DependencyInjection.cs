@@ -1,4 +1,5 @@
 using Core.Factories.Data;
+using Core.Factories.DTO;
 using Core.Interfaces;
 using Core.Interfaces.Factories;
 using Core.Services;
@@ -22,7 +23,7 @@ public static class DependencyInjection
         services.AddScoped<IEventService, EventService>();
 
         // Register factories
-        services.AddScoped<IEventDtoFactory, IEventDtoFactory>();
+        services.AddScoped<IEventDtoFactory, EventDtoFactory>();
 
         // Returning the services so it could be used
         // in our API layer where we are registering the services

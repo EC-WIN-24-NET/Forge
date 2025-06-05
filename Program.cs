@@ -1,5 +1,8 @@
 using System.Reflection;
 using Azure.Identity;
+using Core;
+using Forge.Helpers;
+using Forge.Interface;
 using Infrastructure;
 using Microsoft.OpenApi.Models;
 using Scalar.AspNetCore;
@@ -7,8 +10,10 @@ using Scalar.AspNetCore;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
 builder.Services.AddControllers();
+builder.Services.AddScoped<ICommonHelpers, CommonHelpers>();
+
+
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
@@ -34,7 +39,7 @@ else
 var connectionString = builder.Configuration.GetConnectionString("SQLServerAzure");
 
 // Time to register our Core Services and Infrastructure
-builder.Services.AddInfrastructure(connectionString!);
+builder.Services.AddCoreServices().AddInfrastructure(connectionString!);
 
 // https://learn.microsoft.com/en-us/aspnet/core/tutorials/getting-started-with-swashbuckle?view=aspnetcore-8.0&tabs=visual-studio
 builder.Services.AddSwaggerGen(c =>

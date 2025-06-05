@@ -1,4 +1,10 @@
+using Core.Interfaces.Data;
+using Core.Interfaces.Factories;
+using Domain;
 using Infrastructure.Contexts;
+using Infrastructure.Entities;
+using Infrastructure.Factories;
+using Infrastructure.Repository.Event;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -37,6 +43,12 @@ public static class DependencyInjection
                 b => b.MigrationsAssembly(typeof(DataContext).Assembly.FullName)
             )
         );
+
+        // Registering the repositories in a DI container
+        services.AddScoped<IEventRepository, EventRepository>();
+
+        // Registering the factories in a DI container
+        services.AddScoped<IEntityFactory<Event, EventEntity>, EventFactory>();
 
         return services;
     }
