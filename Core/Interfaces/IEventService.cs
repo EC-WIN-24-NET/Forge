@@ -5,6 +5,6 @@ namespace Core.Interfaces;
 
 public interface IEventService
 {
-    Task<RepositoryResult<EventDisplay>> GetAllEventsAsync();
+    Task<RepositoryResult<IEnumerable<EventDisplay>>> GetAllEventsAsync();
     Task<RepositoryResult<EventDisplay>> GetEventByGuid(Guid id);
 }
