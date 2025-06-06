@@ -4,7 +4,7 @@ public class Event
 {
     public Guid Id { get; set; }
     public string Title { get; set; } = null!;
-    public uint ImageId { get; set; } = 0;
+    public string? ImageId { get; set; }
     public uint Location { get; set; } = 0;
     public ushort Category { get; set; } = 0;
     public DateTime DateTime { get; set; }
