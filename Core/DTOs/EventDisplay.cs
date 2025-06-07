@@ -10,10 +10,12 @@ public class EventDisplay
     [StringLength(100, ErrorMessage = "Title cannot be longer than 100 characters.")]
     public string Title { get; set; } = null!;
     public string? ImageId { get; set; }
-    public uint Location { get; set; } = 0;
+    public Guid Location { get; set; }
     public ushort Category { get; set; } = 0;
+
     [Required]
     public DateTime DateTime { get; set; }
+
     [Required]
     public decimal Price { get; set; }
 }
