@@ -1,7 +1,5 @@
-using Core.DTOs;
 using Core.Interfaces;
 using Forge.Helpers;
-using Forge.Interface;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Forge.Controllers;
@@ -10,7 +8,7 @@ namespace Forge.Controllers;
 /// EventController
 /// </summary>
 [ApiController]
-[Route("api/[controller]")]
+[Route("/[controller]")]
 public class EventController(IEventService eventService, IWebHostEnvironment webHostEnvironment)
     : ControllerBase
 {
