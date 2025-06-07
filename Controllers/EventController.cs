@@ -58,7 +58,7 @@ public class EventController(IEventService eventService, IWebHostEnvironment web
             // Return the events
             return eventsAsync.Value != null && eventsAsync.Value.Any()
                 ? ApiResponseHelper.Success(eventsAsync)
-                : ApiResponseHelper.NotFound("No projects found");
+                : ApiResponseHelper.NotFound("No Events found");
         }
         catch (Exception ex)
         {

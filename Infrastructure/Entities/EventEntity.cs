@@ -18,7 +18,7 @@ public class EventEntity
     public string? ImageId { get; set; }
 
     [Column(TypeName = "nvarchar(36)")]
-    public Guid Location { get; set; }
+    public string? Location { get; set; }
 
     [Column(TypeName = "int")]
     public ushort Category { get; set; } = 0;

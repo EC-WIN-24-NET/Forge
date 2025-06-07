@@ -5,7 +5,7 @@ public class Event
     public Guid Id { get; set; }
     public string Title { get; set; } = null!;
     public string? ImageId { get; set; }
-    public Guid Location { get; set; }
+    public string? Location { get; set; }
     public ushort Category { get; set; } = 0;
     public DateTime DateTime { get; set; }
     public decimal Price { get; set; }
