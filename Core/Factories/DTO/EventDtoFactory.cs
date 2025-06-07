@@ -11,6 +11,7 @@ public class EventDtoFactory : IEventDtoFactory
         {
             Id = displayEvent.Id,
             Title = displayEvent.Title,
+            Description = displayEvent.Description,
             ImageId = displayEvent.ImageId,
             Location = displayEvent.Location,
             Category = displayEvent.Category,
@@ -24,6 +25,7 @@ public class EventDtoFactory : IEventDtoFactory
         {
             Id = eventDisplay.Id,
             Title = eventDisplay.Title,
+            Description = eventDisplay.Description,
             ImageId = eventDisplay.ImageId,
             Location = eventDisplay.Location,
             Category = eventDisplay.Category,

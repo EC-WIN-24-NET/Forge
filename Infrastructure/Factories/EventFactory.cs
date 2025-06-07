@@ -19,6 +19,7 @@ public class EventFactory : EntityFactoryBase<Event, EventEntity>
         {
             Id = eventEntity.Id,
             Title = eventEntity.Title,
+            Description = eventEntity.Description,
             ImageId = eventEntity.ImageId,
             Location = eventEntity.Location,
             Category = eventEntity.Category,
@@ -38,6 +39,7 @@ public class EventFactory : EntityFactoryBase<Event, EventEntity>
         {
             Id = events.Id,
             Title = events.Title,
+            Description = events.Description,
             ImageId = events.ImageId,
             Location = events.Location,
             Category = events.Category,

@@ -14,6 +14,9 @@ public class EventEntity
     [Column(TypeName = "nvarchar(100)")]
     public string Title { get; set; } = null!;
 
+    [Column(TypeName = "nvarchar(500)")]
+    public string? Description { get; set; }
+
     [Column(TypeName = "nvarchar(36)")]
     public string? ImageId { get; set; }
 

@@ -9,6 +9,7 @@ public class EventDisplay
     [Required]
     [StringLength(100, ErrorMessage = "Title cannot be longer than 100 characters.")]
     public string Title { get; set; } = null!;
+    public string? Description { get; set; }
     public string? ImageId { get; set; }
     public string? Location { get; set; }
     public ushort Category { get; set; } = 0;
