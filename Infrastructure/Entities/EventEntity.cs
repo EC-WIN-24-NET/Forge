@@ -14,7 +14,7 @@ public class EventEntity
     [Column(TypeName = "nvarchar(100)")]
     public string Title { get; set; } = null!;
 
-    [Column(TypeName = "nvarchar(500)")]
+    [Column(TypeName = "nvarchar(max)")]
     public string? Description { get; set; }
 
     [Column(TypeName = "nvarchar(36)")]
