@@ -10,8 +10,8 @@ namespace Infrastructure.Contexts;
 /// <param name="options"></param>
 public class DataContext(DbContextOptions<DataContext> options) : DbContext(options)
 {
-    public DbSet<EventEntity> EventEntities { get; set; }
-    public DbSet<EventPackageEntity> PackageEntities { get; set; }
+    public DbSet<EventEntity> Event { get; set; }
+    public DbSet<EventPackageEntity> Package { get; set; }
 
     /*
         # Don't forget to Update the tool first in OS
