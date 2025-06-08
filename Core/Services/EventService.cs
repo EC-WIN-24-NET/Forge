@@ -47,6 +47,15 @@ public class EventService(
         }
     }
 
+    /// <summary>
+    /// Retrieves a specific event by its unique identifier (GUID).
+    /// Handles various scenarios such as entity not found, repository errors, and unexpected states.
+    /// </summary>
+    /// <param name="id">The unique identifier of the event.</param>
+    /// <returns>
+    /// A <see cref="RepositoryResult{T}"/> containing the <see cref="EventDisplay"/> object
+    /// or an error if the operation fails.
+    /// </returns>
     public async Task<RepositoryResult<EventDisplay>> GetEventByGuid(Guid id)
     {
         try
