@@ -17,6 +17,18 @@ public class EventDtoFactory : IEventDtoFactory
             Category = displayEvent.Category,
             DateTime = displayEvent.DateTime,
             Price = displayEvent.Price,
+            // Assuming Event has a collection of EventPackage
+            Packages = displayEvent
+                .Packages.Select(p => new PackageDisplay
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Description = p.Description,
+                    Perks = p.Perks,
+                    Price = p.Price,
+                    Currency = p.Currency,
+                })
+                .ToList(),
         };
 
     public Event ToDomain(EventDisplay eventDisplay)
@@ -31,6 +43,18 @@ public class EventDtoFactory : IEventDtoFactory
             Category = eventDisplay.Category,
             DateTime = eventDisplay.DateTime,
             Price = eventDisplay.Price,
+            // Assuming Event has a collection of EventPackage
+            Packages = eventDisplay
+                .Packages.Select(p => new EventPackage
+                {
+                    Id = p.Id,
+                    Title = p.Title,
+                    Description = p.Description,
+                    Perks = p.Perks,
+                    Price = p.Price,
+                    Currency = p.Currency,
+                })
+                .ToList(),
         };
     }
 }

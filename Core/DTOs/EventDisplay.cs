@@ -19,4 +19,7 @@ public class EventDisplay
 
     [Required]
     public decimal Price { get; set; }
+
+    // Navigation property for many-to-many relationship with packages
+    public virtual ICollection<PackageDisplay> Packages { get; set; } = new List<PackageDisplay>();
 }

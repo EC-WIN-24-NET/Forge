@@ -24,6 +24,7 @@ public static class DependencyInjection
 
         // Register factories
         services.AddScoped<IEventDtoFactory, EventDtoFactory>();
+        services.AddScoped<IEventPackageFactory, EventPackageDtoFactory>();
 
         // Returning the services so it could be used
         // in our API layer where we are registering the services

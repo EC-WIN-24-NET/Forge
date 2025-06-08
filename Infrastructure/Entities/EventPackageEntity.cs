@@ -7,7 +7,7 @@ namespace Infrastructure.Entities;
 public class EventPackageEntity
 {
     [Key]
-    public uint Id { get; set; }
+    public int Id { get; set; }
 
     [Required]
     [Column(TypeName = "nvarchar(100)")]
@@ -15,7 +15,7 @@ public class EventPackageEntity
 
     [Required]
     [Column(TypeName = "nvarchar(300)")]
-    public string Description { get; set; } = null!;
+    public string? Description { get; set; } = null!;
 
     [StringLength(500)]
     [Column(TypeName = "nvarchar(max)")]

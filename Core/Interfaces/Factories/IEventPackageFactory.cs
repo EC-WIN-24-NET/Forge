@@ -3,10 +3,11 @@ using Domain;
 
 namespace Core.Interfaces.Factories;
 
-public interface IPackageFactory
+public interface IEventPackageFactory
 {
     // Converts a domain EventPackage to a display DTO PackageDisplay
-    PackageDisplay ToDisplay(EventPackage packageDisplay);
+    PackageDisplay? ToDisplay(EventPackage? packageDisplay);
+
     // Converts a display DTO PackageDisplay to a domain EventPackage
-    EventPackage ToDomain(PackageDisplay packageDisplay);
+    EventPackage? ToDomain(PackageDisplay? packageDisplay);
 }

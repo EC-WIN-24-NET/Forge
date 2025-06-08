@@ -25,13 +25,15 @@ public class EventFactory : EntityFactoryBase<Event, EventEntity>
             Category = eventEntity.Category,
             DateTime = eventEntity.DateTime,
             Price = eventEntity.Price,
+            // Convert each package entity to a domain object using PackageFactory
+            // The bad side that EFcore need to populate the packages
+            Packages = eventEntity.Packages.Select(p => new PackageFactory().ToDomain(p)).ToList(),
         };
 
     /// <summary>
     /// Creating from Domain object to Entity object
     /// Domain -> Entity
     /// </summary>
-    /// <param name="users"></param>
     /// <param name="events"></param>
     /// <returns></returns>
     public override EventEntity ToEntity(Event events) =>
@@ -45,5 +47,6 @@ public class EventFactory : EntityFactoryBase<Event, EventEntity>
             Category = events.Category,
             DateTime = events.DateTime,
             Price = events.Price,
+            Packages = events.Packages.Select(p => new PackageFactory().ToEntity(p)).ToList(),
         };
 }
