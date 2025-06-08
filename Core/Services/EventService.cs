@@ -56,7 +56,11 @@ public class EventService(
         try
         {
             // Get the event from the repository
-            var eventResult = await eventRepository.GetAsync(e => e != null && e.Id == id, false);
+            var eventResult = await eventRepository.GetAsync(
+                e => e != null && e.Id == id,
+                false,
+                p => p.Packages
+            );
 
             // Case 1: Repository operation itself failed (e.g., DB connection issue, invalid query).
             // eventResult.Error will be a specific error type, not Error.NonError.
