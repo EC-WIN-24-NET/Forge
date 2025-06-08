@@ -23,11 +23,7 @@ public class EventService(
         try
         {
             // Get all events from the repository
-            var getEvents = await eventRepository.GetAllAsync(
-                e => e != null,
-                false,
-                e => e.Packages
-            );
+            var getEvents = await eventRepository.GetAllAsync(e => e != null);
             // Check if the repository operation itself failed
             var eventDisplayDTos = getEvents
                 // Filter out any null events, if necessary
